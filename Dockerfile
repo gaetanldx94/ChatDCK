@@ -24,7 +24,7 @@ RUN git clone https://github.com/gaetanldx94/ChatDCK.git -b server
 ADD . /chatDCK/
 WORKDIR /chatDCK
 
-VOLUME /chatDCK/logs
+# Ajout des droits pour démarrer le serveur
 RUN chmod +x start.sh
 
 # Lancement par défaut de notre application
