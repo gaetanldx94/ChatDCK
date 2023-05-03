@@ -38,7 +38,7 @@ public class ClientThread extends Thread
 			out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
 
 			out.println("Bienvenue sur le serveur de chat !");
-			server.sendMsg(this.pseudo + "s'est connecté!");
+			server.sendMsg(this.pseudo + " s'est connecté!");
 
 			while (bool)
 			{
