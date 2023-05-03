@@ -9,7 +9,7 @@ import java.net.Socket;
 public class ClientThread extends Thread
 {
 	/*
-	 * Variable de l'objet
+	 * Variables de l'objet
 	 */
 	private Socket clientSocket;
 	private String pseudo;
@@ -19,7 +19,7 @@ public class ClientThread extends Thread
 
 	private boolean bool  = true;
 
-	//Initialisation des différentes donné necessaire au client
+	//Initialisation des différentes données necessaire au client
 	public ClientThread(Socket socket, Server server,String pseudo)
 	{
 		this.clientSocket = socket;
@@ -40,11 +40,11 @@ public class ClientThread extends Thread
 
 			while (bool)
 			{
-				//On lis à chaque fois que le client envoie un message
+				//On lit à chaque fois que le client envoie un message
 				String inputLine = in.readLine();
 				if (inputLine == null) break;
 
-				//On print dans la console pour les logs et on envoie le message à tout les clients
+				//On print dans la console pour les logs et on envoie le message à tous les clients
 				System.out.println("Message recu de " + clientSocket.getInetAddress().getHostAddress() + " : " + inputLine);
 				server.sendMsg(this.pseudo + ": " + inputLine);
 			}
@@ -54,7 +54,7 @@ public class ClientThread extends Thread
 			clientSocket.close();
 		}
 		/*
-		 * On récupère toute erreur de connexion et tout autre exception
+		 * On récupère toutes erreurs de connexion et toutes autres exceptions
 		 * qui empecherait le bon fonctionnement du thread client
 		*/
 		catch (IOException e)
