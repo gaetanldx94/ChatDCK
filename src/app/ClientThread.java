@@ -51,6 +51,7 @@ public class ClientThread extends Thread
 
 			//Si l'on sort de la boucle c'est que le client est déconnecté
 			System.out.println("Connexion fermee par " + clientSocket.getInetAddress().getHostAddress());
+			server.sendMsg(this.pseudo + " s'est déconnecté!");
 			clientSocket.close();
 		}
 		/*
