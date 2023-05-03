@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 public class Server
 {
-	private LinkedList<ClientThread> threads; //List des clients connecté sur le serveur
+	private LinkedList<ClientThread> threads; //List des clients connectés sur le serveur
 
 	public Server(int port) throws IOException
 	{
@@ -21,7 +21,7 @@ public class Server
 
 			System.out.println("Le serveur de chat est en ligne sur le port 9000...");
 
-			while (true) //Boucle infini qui gère les clients ce connectant en initialisant un nouveau threads pour chacun d'entre eux
+			while (true) //Boucle infini qui gère les clients se connectant en initialisant un nouveau thread pour chacun d'entre eux
 			{
 				Socket         clientSocket = serverSocket.accept();
 				System.out.println("Nouvelle connexion de " + clientSocket.getInetAddress().getHostAddress());
@@ -32,8 +32,8 @@ public class Server
 
 				//clé : 5f4ky478l1qs35d178ksd5
 				/*
-				 * Le serveur n'accepte aucun client en dehors de ce utilisant notre application
-				 * dédier gràce à une clé d'authentification.
+				 * Le serveur n'accepte aucun client en dehors de ceux utilisant notre application
+				 * dédiée grâce à une clé d'authentification.
 				*/
 				if (!in.readLine().equals("5f4ky478l1qs35d178ksd5"))
 				{
@@ -44,7 +44,7 @@ public class Server
 				else
 				{
 					/*
-					 * si la clé est correct on initialise le pseudo de la personne et on lance un nouveau thread
+					 * si la clé est correcte on initialise le pseudo de la personne et on lance un nouveau thread
 					 * indépendant
 					*/
 					out.println("Rentrez votre pseudo : ");
@@ -55,7 +55,7 @@ public class Server
 				}
 
 				/*
-				 * Si un client est fermer mais encore enregistrer
+				 * Si un client est fermé mais encore enregistré
 				 * on le retire de la liste pour éviter toute surcharge
 				 */
 				for(int i = 0; i < threads.size(); i++)
@@ -66,8 +66,8 @@ public class Server
 	}
 
 	/*
-	 * Quand un message est reçue le serveur le renvoie à tout les clients connecté
-	 * tout en vérifiant si la connection n'est pas fermer
+	 * Quand un message est reçue le serveur le renvoie à tous les clients connectés
+	 * tout en vérifiant si la connection n'est pas fermée
 	*/
 	public void sendMsg(String msg) throws IOException
 	{
