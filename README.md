@@ -16,7 +16,7 @@ Il affiche également tous les messages qu'il reçoit et de qui ils proviennent 
 A chaque message transmis, la connexion avec les utilisateurs est vérifiée pour ne pas envoyer un message vers une connexion qui est fermée
 
 
-ClientThread est une clase que nous avons créée :
+ClientThread est une classe que nous avons crée :
 Elle prend en paramètre un socket, un serveur et un pseudo.
 Le ClientThread lit chaque message que le client envoie et l'affiche dans la console pour les logs.
 Si le client associé se déconnecte, il l'affiche dans la console.
