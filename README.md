@@ -13,8 +13,10 @@ COMPOSITION DE L'ÉQUIPE :
     
     
   Avantages :
+  
     -Possibilité de changer l'IP et le port facilement à l'aide d'une fenêtre type formulaire.
     -Fenêtre graphique côté client et non un affichage console.
 
   Limites :
+  
     -Les clients et le serveur doivent être sous le même réseau.
