@@ -6,7 +6,7 @@ Pour ce projet, nosu avons choisi de réaliser une application de chat à distan
 
 COMPOSITION DE L'ÉQUIPE :
 
-    LEDOUX GAËTAN
+    LEDOUX GAÉTAN
     BOUDEELE THOMAS
     CHUZEVILLE JULES
     CHAMPVILLARD SÉBASTIEN
