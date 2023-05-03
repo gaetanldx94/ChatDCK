@@ -77,7 +77,7 @@ public class Server
 			if(!client.getSocket().isClosed())
 			{
 				PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getSocket().getOutputStream(), "UTF-8"), true);
-				out.println(msg + " \u00e9");
+				out.println(msg);
 			}
 		}
 	}
