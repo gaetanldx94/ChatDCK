@@ -18,4 +18,6 @@ A chaque message transmis, la connexion avec les utilisateurs est vérifiée pou
 
 ClientThread est une clase que nous avons créée :
 Elle prend en paramètre un socket, un serveur et un pseudo.
-Le ClientThread lit cha
+Le ClientThread lit chaque message que le client envoie et l'affiche dans la console pour les logs.
+Si le client associé se déconnecte, il l'affiche dans la console.
+Les erreurs sont récupérées et ignorées pour le bon fonctionnement du code grâce à un try catch.
