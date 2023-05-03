@@ -3,13 +3,14 @@ package src.app;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientThread extends Thread
 {
 	/*
-	 * Variables de l'objet
+	 * Variable de l'objet
 	 */
 	private Socket clientSocket;
 	private String pseudo;
@@ -19,7 +20,7 @@ public class ClientThread extends Thread
 
 	private boolean bool  = true;
 
-	//Initialisation des différentes données necessaire au client
+	//Initialisation des différentes donné necessaire au client
 	public ClientThread(Socket socket, Server server,String pseudo)
 	{
 		this.clientSocket = socket;
@@ -34,17 +35,17 @@ public class ClientThread extends Thread
 		{
 			//Initialisation des différentes variables
 			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			out = new PrintWriter(clientSocket.getOutputStream(), true);
+			out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
 
 			out.println("Bienvenue sur le serveur de chat !");
 
 			while (bool)
 			{
-				//On lit à chaque fois que le client envoie un message
+				//On lis à chaque fois que le client envoie un message
 				String inputLine = in.readLine();
 				if (inputLine == null) break;
 
-				//On print dans la console pour les logs et on envoie le message à tous les clients
+				//On print dans la console pour les logs et on envoie le message à tout les clients
 				System.out.println("Message recu de " + clientSocket.getInetAddress().getHostAddress() + " : " + inputLine);
 				server.sendMsg(this.pseudo + ": " + inputLine);
 			}
@@ -55,7 +56,7 @@ public class ClientThread extends Thread
 			clientSocket.close();
 		}
 		/*
-		 * On récupère toutes erreurs de connexion et toutes autres exceptions
+		 * On récupère toute erreur de connexion et tout autre exception
 		 * qui empecherait le bon fonctionnement du thread client
 		*/
 		catch (IOException e)
