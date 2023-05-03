@@ -2,7 +2,7 @@
 
 Dans cette branche se trouvent tout ce qui se rapportent au serveur.
 
-Dans le dossier "src" se trouvent les ".java". 
+Dans le dossier "src" se trouvent les ".java".
 Dans le dossier "out" se trouvent les ".class".
 
 On lance le serveur avec le fichier : "start.sh"
