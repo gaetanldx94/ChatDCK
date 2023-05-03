@@ -1,0 +1,8 @@
+./src/Controller/Main.java
+./src/Model/Client.java
+
+./src/View/FrameInit.java
+./src/View/FrameClient.java
+./src/View/PanelClient.java
+./src/View/PanelDeco.java
+./src/View/PanelBtn.java
