@@ -6,7 +6,7 @@ import src.app.Server;
 
 public class Main
 {
-	//Unique endroit ou le port est définie pour plus de modulariter !
+	//Unique endroit où le port est défini pour plus de modulariter !
 	private static final int PORT = 9000;
 
 	public static void main(String[] args) throws IOException
