@@ -81,4 +81,9 @@ public class Server
 			}
 		}
 	}
+
+	public LinkedList<ClientThread> getListeClient()
+	{
+		return threads;
+	}
 }

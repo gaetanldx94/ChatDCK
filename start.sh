@@ -1,3 +1,3 @@
-javac @compile.list -d out -encoding utf-8
+javac @compile.list -d out
 cd out
 java src.Main
