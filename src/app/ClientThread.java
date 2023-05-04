@@ -48,10 +48,12 @@ public class ClientThread extends Thread
 
 				//On print dans la console pour les logs et on envoie le message à tout les clients
 				System.out.println("Message recu de " + clientSocket.getInetAddress().getHostAddress() + " : " + inputLine);
-				if(inputLine.substring(0, 7).equals("/pseudo")) {
-					server.sendMsg(this.pseudo + " à changé de pseudo pour " + inputLine.split(":")[1]);
-					this.pseudo = inputLine.split(":")[1];
-				} else {
+				try {
+					if(inputLine.substring(0, 7).equals("/pseudo")) {
+						server.sendMsg(this.pseudo + " a changé de pseudo pour " + inputLine.split(":")[1]);
+						this.pseudo = inputLine.split(":")[1];
+					}
+				} catch (StringIndexOutOfBoundsException e) {
 					server.sendMsg(this.pseudo + ": " + inputLine);
 				}
 			}
