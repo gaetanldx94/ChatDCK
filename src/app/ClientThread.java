@@ -48,7 +48,12 @@ public class ClientThread extends Thread
 
 				//On print dans la console pour les logs et on envoie le message à tout les clients
 				System.out.println("Message recu de " + clientSocket.getInetAddress().getHostAddress() + " : " + inputLine);
-				server.sendMsg(this.pseudo + ": " + inputLine);
+				if(inputLine.substring(0, 7).equals("/pseudo")) {
+					server.sendMsg(this.pseudo + " à changé de pseudo pour " + inputLine.split(":")[1]);
+					this.pseudo = inputLine.split(":")[1];
+				} else {
+					server.sendMsg(this.pseudo + ": " + inputLine);
+				}
 			}
 
 			//Si l'on sort de la boucle c'est que le client est déconnecté
