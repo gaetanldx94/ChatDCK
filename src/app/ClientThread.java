@@ -18,14 +18,13 @@ public class ClientThread extends Thread
 	private PrintWriter out;
 	private Server server;
 	private StringBuilder strBuilder;
+	private boolean bool  = true;
 
 	private String[] commandes = {
-		"/pseudo",
+		"/pseudo:",
 		"/list",
 		"/help",
 	};
-
-	private boolean bool  = true;
 
 	//Initialisation des différentes donné necessaire au client
 	public ClientThread(Socket socket, Server server,String pseudo)
@@ -45,11 +44,11 @@ public class ClientThread extends Thread
 			out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
 
 			out.println("Bienvenue sur le serveur de chat !");
-			server.sendMsg(this.pseudo + "s'est connecté!");
+			server.sendMsg(this.pseudo + " s'est connecté!");
 
 			while (bool)
 			{
-				strBuilder = null;
+				strBuilder = new StringBuilder();
 				//On lis à chaque fois que le client envoie un message
 				String inputLine = in.readLine();
 				if (inputLine == null) break;
@@ -59,31 +58,33 @@ public class ClientThread extends Thread
 
 				try {
 					//On passe ici quand une commande spécifique est saisie
-					if(inputLine.substring(0, 7).equals(commandes[0]))
+					if(inputLine.startsWith(commandes[0]))
 					{
 						server.sendMsg(this.pseudo + " a changé de pseudo pour " + inputLine.split(":")[1]);
 						this.pseudo = inputLine.split(":")[1];
 					}
-					else if(inputLine.substring(0, 5).equals(commandes[1]))
+					else if(inputLine.startsWith(commandes[1]))
 					{
 						strBuilder.append("Liste des clients connectés : \n");
 						for(int i = 0; i < server.getListeClient().size(); i++)
 						{
 							strBuilder.append("--> " + server.getListeClient().get(i).pseudo + "\n");
 						}
-						server.sendMsg(strBuilder.toString());
+						out.println(strBuilder.toString());
 					}
-					else if(inputLine.substring(0, 5).equals(commandes[2]))
+					else if(inputLine.startsWith(commandes[2]))
 					{
-						for(int i = 0; i < commandes.length; i++)
+						strBuilder.append(commandes[0] + "+pseudo\n");
+						for(int i = 1; i < commandes.length; i++)
 						{
 							strBuilder.append(commandes[i] + "\n");
 						}
-						server.sendMsg(strBuilder.toString());
+						out.println(strBuilder.toString());
 					}
-				} catch (StringIndexOutOfBoundsException e) {
-					server.sendMsg(this.pseudo + ": " + inputLine);
+					else server.sendMsg(this.pseudo + ": " + inputLine);
 				}
+				catch (StringIndexOutOfBoundsException e) { server.sendMsg(this.pseudo + ": " + inputLine); }
+				catch (ArrayIndexOutOfBoundsException ex) { server.sendMsg(this.pseudo + ": " + inputLine); }
 			}
 
 			//Si l'on sort de la boucle c'est que le client est déconnecté
