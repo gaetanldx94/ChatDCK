@@ -2,15 +2,15 @@ package Model;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import View.FrameClient;
+
 import View.PanelClient;
 
 public class Client extends Thread{
 
-	private final int PORT = 9000;
 	private Socket clientSocket;
 	private PrintWriter out;
 	private BufferedReader in;
@@ -25,15 +25,13 @@ public class Client extends Thread{
 
 	public void run() {
 		try {
-			//Création du serveur sur le port 9000
-			//clientSocket = new Socket("172.26.7.35", 9000);
-
 			clientSocket = new Socket(this.pnlClt.getFrameClient().getIp(), this.pnlClt.getFrameClient().getPort());
 
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
 			in  = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
 			out.println("5f4ky478l1qs35d178ksd5");
+
 			this.pnlClt.appendTxt(in.readLine());
 
 			while(!clientSocket.isClosed()) {
@@ -51,14 +49,14 @@ public class Client extends Thread{
 					}
 				}
 
-				//recoit et affiche le message venant du serveur
+				//Envoie le message au serveur
 				if(this.bPseudo)
 					if(this.message != null) {				
 						out.println(this.message);
 						this.message = null;
 				}
 
-				//Envoie un message au serveur
+				//Reçois un message du serveur
 				if(in.ready()) {
 					this.pnlClt.appendTxt(in.readLine());
 				}
@@ -71,15 +69,21 @@ public class Client extends Thread{
 	//Methodes
 	public void setMessage(String msg) { this.message = msg; }
 	public String getPseudo(){return this.pseudo;}
+	public void   setPseudo(String ch)
+	{
+		out.println("/pseudo:"+ch);
+		this.pseudo = ch;
+		this.pnlClt.getFrameClient().setTitle(this.pseudo);
+	}
 
 	public void disconnect()
 	{
 		try 
 		{
 			clientSocket.close();
-		} catch (Exception e) 
+		} catch (Exception ex) 
 		{
-			e.printStackTrace();
+			ex.printStackTrace();
 		}
 		
 	}

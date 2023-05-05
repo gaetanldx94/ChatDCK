@@ -40,7 +40,7 @@ public class FrameInit extends JFrame
 		this.paneltext = new JPanel(new FlowLayout());
 		this.panelBtn = new PanelBtn(this);
 		
-		this.txtIP      = new JTextField();
+		this.txtIP      = new JTextField("172.26.7.35");
 		this.txtPort    = new JTextField("9000");
 		
 		this.txtIP  .setPreferredSize(new Dimension(125, 25));

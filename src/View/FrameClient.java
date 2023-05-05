@@ -1,13 +1,12 @@
 package View;
 
+import Model.Client;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.awt.*;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -31,9 +30,11 @@ public class FrameClient extends JFrame
 		this.setLocationRelativeTo(null);
 		Image icon = new ImageIcon(getClass().getResource("./images/icon.png")).getImage();
 		this.setIconImage(icon);
+		this.setResizable(false);
 
-		this.panelJolie  = new PanelDeco();
+		
 		this.panelClient = new PanelClient(this);
+		this.panelJolie  = new PanelDeco  (this, this.panelClient.getClient());
 			
 		
 		this.add(this.panelJolie);
@@ -53,6 +54,12 @@ public class FrameClient extends JFrame
 	public PanelClient getPanel(){return this.panelClient;}
 	public String getIp(){return this.IP;}
 	public int getPort(){return this.port;}
+
+	public void changementPseudo(String ch)
+	{
+		this.panelClient.changementPseudo(ch);
+	}
+
 
 	//Creation de la classe privé GereFenetre.
 	private class GereFenetre extends WindowAdapter
