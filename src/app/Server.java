@@ -1,18 +1,26 @@
 package src.app;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Server
 {
+	private static final String SAVE_RANK = "./../res/Save.rank";
+
 	// Liste des threads clients
 	private final LinkedList<ClientThread> clientThreads = new LinkedList<>();
+
+	//Classements des temps
+	private ArrayList<String> timeRank = new ArrayList<String>();
 
 	// Constantes
 	private static final int               PORT          = 9000;
@@ -24,6 +32,17 @@ public class Server
 	// Constructeur
  	public Server() throws IOException
 	{
+		File saveRank = new File(SAVE_RANK);
+
+		if(!saveRank.exists())
+			saveRank.createNewFile();
+
+		Scanner sc = new Scanner(saveRank);
+		while(sc.hasNextLine())
+			timeRank.add(sc.nextLine());
+		sc.close();
+
+
 		try (ServerSocket serverSocket = new ServerSocket(PORT))
 		{
 			System.out.println(CONNECTED_MSG);
@@ -91,5 +110,15 @@ public class Server
 	public LinkedList<ClientThread> getClientThreads()
 	{
 		return clientThreads;
+	}
+
+	public ArrayList<String> getTimeRank()
+	{
+		return timeRank;
+	}
+
+	public void setTimeRank(ArrayList<String> timeRank)
+	{
+		this.timeRank = timeRank;
 	}
 }
