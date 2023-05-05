@@ -7,101 +7,101 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import java.util.logging.Logger;
+
 public class ClientThread extends Thread
 {
-	/*
-	 * Variable de l'objet
-	 */
+	// Initialisation d'un logger pour la classe
+	private static final Logger LOGGER    = Logger.getLogger(ClientThread.class.getName());
+
+	//Variables
+	private boolean             isRunning = true;
 	private Socket clientSocket;
-	private String pseudo;
-	private BufferedReader in;
-	private PrintWriter out;
-	private Server server;
-	private StringBuilder strBuilder;
-	private boolean bool  = true;
+	private String pseudo      ;
+	private BufferedReader in  ;
+	private PrintWriter out    ;
+	private Server server      ;
 
-	private String[] commandes = {
-		"/pseudo:",
-		"/list",
-		"/help",
-	};
+	// Définition des commandes possibles pour le chat
+	private static final String[] COMMANDS = { "/pseudo:", "/list", "/help" };
 
-	//Initialisation des différentes donné necessaire au client
-	public ClientThread(Socket socket, Server server,String pseudo)
+	// Constructeur de la classe
+	public ClientThread(Socket socket, Server server, String pseudo)
 	{
-		this.clientSocket = socket;
+		clientSocket = socket;
 		this.server = server;
 		this.pseudo = pseudo;
 	}
 
-	//Méthode d'initialisation du thread (Client connecté)
+	// Redéfinition de la méthode run() de la classe Thread
 	public void run()
 	{
-		try
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			 PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true))
 		{
-			//Initialisation des différentes variables
-			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
-
+			// Envoi d'un message de bienvenue au client
 			out.println("Bienvenue sur le serveur de chat !");
-			server.sendMsg(this.pseudo + " s'est connecté!");
+			// Envoi d'un message de connexion au serveur
+			server.sendMsg(pseudo + " s'est connecté!");
 
-			while (bool)
+			String inputLine;
+			// Boucle d'écoute des messages envoyés par le client
+			while (isRunning && (inputLine = in.readLine()) != null)
 			{
-				strBuilder = new StringBuilder();
-				//On lis à chaque fois que le client envoie un message
-				String inputLine = in.readLine();
-				if (inputLine == null) break;
+				LOGGER.info("Message recu de " + clientSocket.getInetAddress().getHostAddress() + " : " + inputLine);
 
-				//On print dans la console pour les logs et on envoie le message à tout les clients
-				System.out.println("Message recu de " + clientSocket.getInetAddress().getHostAddress() + " : " + inputLine);
-
-				try {
-					//On passe ici quand une commande spécifique est saisie
-					if(inputLine.startsWith(commandes[0]))
-					{
-						server.sendMsg(this.pseudo + " a changé de pseudo pour " + inputLine.split(":")[1]);
-						this.pseudo = inputLine.split(":")[1];
-					}
-					else if(inputLine.startsWith(commandes[1]))
-					{
-						strBuilder.append("Liste des clients connectés : \n");
-						for(int i = 0; i < server.getListeClient().size(); i++)
-						{
-							strBuilder.append("--> " + server.getListeClient().get(i).pseudo + "\n");
-						}
-						out.println(strBuilder.toString());
-					}
-					else if(inputLine.startsWith(commandes[2]))
-					{
-						strBuilder.append(commandes[0] + "+pseudo\n");
-						for(int i = 1; i < commandes.length; i++)
-						{
-							strBuilder.append(commandes[i] + "\n");
-						}
-						out.println(strBuilder.toString());
-					}
-					else server.sendMsg(this.pseudo + ": " + inputLine);
+				// Traitement des commandes
+				if (inputLine.startsWith(COMMANDS[0]))
+				{
+					// Commande de changement de pseudo
+					String newPseudo = inputLine.substring(COMMANDS[0].length());
+					server.sendMsg(pseudo + " a changé de pseudo pour " + newPseudo);
+					pseudo = newPseudo;
 				}
-				catch (StringIndexOutOfBoundsException e) { server.sendMsg(this.pseudo + ": " + inputLine); }
-				catch (ArrayIndexOutOfBoundsException ex) { server.sendMsg(this.pseudo + ": " + inputLine); }
+				else if (inputLine.startsWith(COMMANDS[1]))
+				{
+					// Commande d'affichage de la liste des clients connectés
+					StringBuilder builder = new StringBuilder("Liste des clients connectés : \n");
+					for (ClientThread client : server.getClientThreads()) {
+						builder.append("--> ").append(client.pseudo).append("\n");
+					}
+					out.println(builder);
+				}
+				else if (inputLine.startsWith(COMMANDS[2]))
+				{
+					// Commande d'affichage de la liste des commandes disponibles
+					StringBuilder builder = new StringBuilder();
+					for (String cmd : COMMANDS) {
+						builder.append(cmd).append("\n");
+					}
+					out.println(builder);
+				}
+				else
+				{
+					// Envoi du message à tous les clients connectés au serveur
+					server.sendMsg(pseudo + ": " + inputLine);
+				}
 			}
-
-			//Si l'on sort de la boucle c'est que le client est déconnecté
-			System.out.println("Connexion fermee par " + clientSocket.getInetAddress().getHostAddress());
-			server.sendMsg(this.pseudo + " s'est déconnecté!");
+			// Envoi d'un message de déconnexion au serveur
+			LOGGER.info("Connexion fermee par " + clientSocket.getInetAddress().getHostAddress());
+			server.sendMsg(pseudo + " s'est déconnecté!");
 			clientSocket.close();
 		}
-		/*
-		 * On récupère toute erreur de connexion et tout autre exception
-		 * qui empecherait le bon fonctionnement du thread client
-		*/
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			LOGGER.warning(e.getMessage());
 		}
 	}
 
-	//Accesseur
-	public Socket getSocket() { return this.clientSocket; }
+	// Méthode permettant d'obtenir le socket du client
+	public Socket getSocket()
+	{
+		return clientSocket;
+	}
+
+	// Méthode permettant d'arrêter le thread
+	public void stopRunning()
+	{
+		isRunning = false;
+	}
 }

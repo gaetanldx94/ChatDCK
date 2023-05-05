@@ -9,72 +9,78 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 
-
 public class Server
 {
-	private LinkedList<ClientThread> threads; //List des clients connecté sur le serveur
+	// Liste des threads clients
+	private final LinkedList<ClientThread> clientThreads = new LinkedList<>();
 
-	public Server(int port) throws IOException
+	// Constantes
+	private static final int               PORT          = 9000;
+	private static final String            AUTH_KEY      = "5f4ky478l1qs35d178ksd5";
+	private static final String            CONNECTED_MSG = "Le serveur de chat est en ligne sur le port " + PORT + "...";
+	private static final String            PROMPT_PSEUDO = "Rentrez votre pseudo : ";
+	private static final String            KEY_ERROR_MSG = "Clé incorrect !";
+
+	// Constructeur
+ 	public Server() throws IOException
 	{
-		try (ServerSocket serverSocket = new ServerSocket(port)) // Initialisation du serveur
+		try (ServerSocket serverSocket = new ServerSocket(PORT))
 		{
-			threads = new LinkedList<ClientThread>();
+			System.out.println(CONNECTED_MSG);
 
-			System.out.println("Le serveur de chat est en ligne sur le port 9000...");
-
-			while (true) //Boucle infini qui gère les clients ce connectant en initialisant un nouveau threads pour chacun d'entre eux
+			while (true)
 			{
-				Socket         clientSocket = serverSocket.accept();
+				// Attente de connexion d'un client
+				Socket clientSocket = serverSocket.accept();
 				System.out.println("Nouvelle connexion de " + clientSocket.getInetAddress().getHostAddress());
 
-				String         pseudo       = "";
-				BufferedReader in           = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				PrintWriter    out          = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
-
-				//clé : 5f4ky478l1qs35d178ksd5
 				/*
-				 * Le serveur n'accepte aucun client en dehors de ce utilisant notre application
-				 * dédier gràce à une clé d'authentification.
+				* Le serveur n'accepte aucun client en dehors de ceux utilisant notre application
+				* dédiée grâce à une clé d'authentification.
 				*/
-				if (!in.readLine().equals("5f4ky478l1qs35d178ksd5"))
+
+				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+				if (!in.readLine().equals(AUTH_KEY))
 				{
-					out.println("Clé incorrect !");
-					System.out.println("Connexion fermee par " + clientSocket.getInetAddress().getHostAddress());
+					out.println(KEY_ERROR_MSG);
+					System.out.println("Connexion fermée par " + clientSocket.getInetAddress().getHostAddress());
 					clientSocket.close();
 				}
 				else
 				{
 					/*
-					 * si la clé est correct on initialise le pseudo de la personne et on lance un nouveau thread
-					 * indépendant
+					* Si la clé est correcte, on initialise le pseudo de la personne et on lance un nouveau thread
+					* indépendant
 					*/
-					out.println("Rentrez votre pseudo : ");
-					pseudo = in.readLine();
 
-					threads.add( new ClientThread(clientSocket, this, pseudo));
-					threads.getLast().start();
+					out.println(PROMPT_PSEUDO);
+					String pseudo = in.readLine();
+
+					ClientThread clientThread = new ClientThread(clientSocket, this, pseudo);
+					clientThreads.add(clientThread);
+					clientThread.start();
 				}
 
 				/*
-				 * Si un client est fermer mais encore enregistrer
-				 * on le retire de la liste pour éviter toute surcharge
-				 */
-				for(int i = 0; i < threads.size(); i++)
-					if(threads.get(i).getSocket().isClosed())
-						threads.remove(i);
+				* On retire les threads clients qui se sont déconnectés pour éviter toute surcharge
+				*/
+				clientThreads.removeIf(clientThread -> clientThread.getSocket().isClosed());
 			}
 		}
 	}
 
 	/*
-	 * Quand un message est reçue le serveur le renvoie à tout les clients connecté
-	 * tout en vérifiant si la connection n'est pas fermer
+	* Quand un message est reçu, le serveur le renvoie à tous les clients connectés
+	* tout en vérifiant si la connexion n'est pas fermée
 	*/
+
 	public void sendMsg(String msg) throws IOException
 	{
-		for(ClientThread client : threads)
+		for (ClientThread client : clientThreads)
 		{
-			if(!client.getSocket().isClosed())
+			if (!client.getSocket().isClosed())
 			{
 				PrintWriter out = new PrintWriter(new OutputStreamWriter(client.getSocket().getOutputStream(), "UTF-8"), true);
 				out.println(msg);
@@ -82,8 +88,8 @@ public class Server
 		}
 	}
 
-	public LinkedList<ClientThread> getListeClient()
+	public LinkedList<ClientThread> getClientThreads()
 	{
-		return threads;
+		return clientThreads;
 	}
 }
