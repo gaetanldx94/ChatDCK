@@ -21,8 +21,8 @@ RUN sudo apt-get clean
 # installation et configuration de notre application
 RUN git clone https://github.com/gaetanldx94/ChatDCK.git -b server
 
-ADD . /chatDCK/
-WORKDIR /chatDCK
+ADD . /ChatDCK/
+WORKDIR /ChatDCK
 
 # Ajout des droits pour démarrer le serveur
 RUN chmod +x start.sh
