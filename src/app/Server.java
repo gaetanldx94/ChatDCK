@@ -58,8 +58,8 @@ public class Server
 				* dédiée grâce à une clé d'authentification.
 				*/
 
-				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+				PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
 
 				if (!in.readLine().equals(AUTH_KEY))
 				{

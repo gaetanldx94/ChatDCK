@@ -46,7 +46,7 @@ public class ClientThread extends Thread
 	// Redéfinition de la méthode run() de la classe Thread
 	public void run()
 	{
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 			 PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true))
 		{
 			// Envoi d'un message de bienvenue au client
