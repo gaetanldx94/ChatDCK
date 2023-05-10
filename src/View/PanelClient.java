@@ -27,17 +27,17 @@ public class PanelClient extends JPanel implements ActionListener {
 	private Client client = new Client(this);
 
 	public PanelClient(FrameClient frameClient) {
-		
+
 		this.setLayout(new BorderLayout());
 		this.client.start();
-		
+
 
 		this.frameClient=frameClient;
 
 		//Creation des composants
 		this.txtMessage = new JTextField();
 		this.txtAChat 	= new JTextArea();
-		
+
 		this.txtAChat.setEditable(false);
 		this.txtAChat.setText("");
 
@@ -46,7 +46,7 @@ public class PanelClient extends JPanel implements ActionListener {
 		//this.scrollBar.add
 		this.txtMessage.setEditable(true);
 
-		
+
 		//Positionnement des composants
 
 		this.add(this.scrollBar,   BorderLayout.CENTER);
@@ -54,7 +54,7 @@ public class PanelClient extends JPanel implements ActionListener {
 
 		//Activation des composants
 
-		
+
 		this.txtMessage.addActionListener(this);
 	}
 
@@ -63,45 +63,37 @@ public class PanelClient extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == txtMessage) {
 			String message = this.txtMessage.getText();
-			
-		
-			
+
+
+
 			if(message.startsWith(this.COMMANDE_PSD))
 			{
 				this.getFrameClient().setTitle(message.substring(this.COMMANDE_PSD.length()));
 			}
-			
-			this.client.setMessage(convertisseurEncodage(message));
+
+			this.client.setMessage(message);
 
 			this.scrollbar.setValue(this.scrollbar.getMaximum());
-			
+
 			this.txtMessage.setText(null);
-			
+
 		}
 	}
 
-	
-	
+
+
 
 	//Methodes
 	public String getPseudo(){ return this.client.getPseudo(); }
 	public FrameClient getFrameClient(){ return this.frameClient; }
-	
+
 	public void appendTxt(String msg){ this.txtAChat.append(msg + "\n"); }
-	
+
 	public void disconnect(){ this.client.disconnect(); }
 
 	public Client getClient() {return this.client;}
 
-	//Méthode permettant de convertir une lettre accentuée (é,è,à...) en sa lettre sans absent (e,a...)
-	public String convertisseurEncodage( String message )
-	{
-		String strTemp = Normalizer.normalize( message, Normalizer.Form.NFC );
-		Pattern pattern = Pattern.compile( "\\p{InCombiningDiacriticalMarks}+" );
-		return pattern.matcher(strTemp).replaceAll( "" );
-	}
-
-	//Méthode pour changer le pseudo du client 
+	//Méthode pour changer le pseudo du client
 	public void changementPseudo(String ch)
 	{
 		this.client.setPseudo(ch);

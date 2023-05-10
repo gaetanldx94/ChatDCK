@@ -2,10 +2,9 @@ package Model;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-
 
 import View.PanelClient;
 
@@ -27,8 +26,8 @@ public class Client extends Thread{
 		try {
 			clientSocket = new Socket(this.pnlClt.getFrameClient().getIp(), this.pnlClt.getFrameClient().getPort());
 
-			out = new PrintWriter(clientSocket.getOutputStream(), true);
-			in  = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
+			out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
 
 			out.println("5f4ky478l1qs35d178ksd5");
 
@@ -43,15 +42,15 @@ public class Client extends Thread{
 						this.pseudo = message;
 						this.message = null;
 						this.bPseudo = true;
-						
-						
+
+
 						this.pnlClt.getFrameClient().setTitle(this.pseudo);
 					}
 				}
 
 				//Envoie le message au serveur
 				if(this.bPseudo)
-					if(this.message != null) {				
+					if(this.message != null) {
 						out.println(this.message);
 						this.message = null;
 				}
@@ -78,13 +77,13 @@ public class Client extends Thread{
 
 	public void disconnect()
 	{
-		try 
+		try
 		{
 			clientSocket.close();
-		} catch (Exception ex) 
+		} catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
-		
+
 	}
 }

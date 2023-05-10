@@ -1,7 +1,6 @@
 package Controller;
 
 import View.FrameInit;
-import View.Jeux;
 
 public class Main {
 
