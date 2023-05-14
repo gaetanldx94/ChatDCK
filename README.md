@@ -23,7 +23,8 @@ COMPOSITION DE L'ÉQUIPE :
     
     Assurez-vous que Docker est installé sur votre machine Windows. Si vous ne l'avez pas déjà installé, vous pouvez suivre les instructions sur le site officiel de Docker: https://www.docker.com/get-started
 
-#Guide d'utilisation
+# Guide d'utilisation
+
 Récupérez le fichier Dockerfile dans la branche Docker du projet git.
 Ouvrez votre terminal et naviguez vers le répertoire contenant le fichier Dockerfile.
 Lancer le fichier dockerrun.bat pour créer le serveur.
