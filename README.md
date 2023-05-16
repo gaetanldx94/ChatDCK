@@ -62,6 +62,9 @@ Il existe plusieurs commande pour le chat:
 
 Si vous n'aimez plus le pseudo que vous avez rentré, vous avez la possibilité de le changer avec le bouton "Changement de pseudo". Cela ouvre alors une fenètre qui vous permet de rentré votre nouvelle identité.
 
+![Capture d’écran 2022-09-04 222411](https://github.com/gaetanldx94/ChatDCK/assets/119732048/6ddad2f2-8070-41d5-8b28-cfc2a14ca012)
+
+
 # Typing Race
 
 Vous avez aussi la possiblité de défier les membres du chat en ligne grâce au jeu "Typing Race". C'est donc un jeu de clavier, ou vous devez recopier une phrase à l'identique le plus rapidement possible. Votre temps est stocké dans un classement qui est actualissé en temps réel.
