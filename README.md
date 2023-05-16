@@ -6,22 +6,22 @@ Cette branche a pour fonction d'installer et configurer le docker et donc le ser
 
 Dans un 1er temps, le docker installe son OS qui est donc debian 11 ainsi que les commandes sudo pour donner les droits d'administrateur.
 
-# Système de base du docker
+// Système de base du docker
 FROM debian:11
 
-# Mise à jour du système
+// Mise à jour du système
 RUN apt update && apt -y upgrade
 
-# Configuration de l'utilisateur sudo
+// Configuration de l'utilisateur sudo
 RUN apt-get install -y sudo
 RUN sudo -i
 
 Ensuite, on installe java et git pour pouvoir récuperer, compiler et lancer le programme du serveur. 
 
-# installation de java
+// installation de java
 RUN sudo apt-get install -y openjdk-11-jdk-headless
 
-# installation de divers outils réseaux
+// installation de divers outils réseaux
 RUN sudo apt-get install -y git
 RUN sudo apt-get install -y net-tools
 
