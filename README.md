@@ -61,8 +61,9 @@ Il existe plusieurs commande pour le chat:
 # Changement de pseudo 
 
 Si vous n'aimez plus le pseudo que vous avez rentré, vous avez la possibilité de le changer avec le bouton "Changement de pseudo". Cela ouvre alors une fenètre qui vous permet de rentré votre nouvelle identité.
+![Changement de pseudo](https://github.com/gaetanldx94/ChatDCK/assets/119732048/6e1a5d10-a19b-48b7-8a22-2775600c3f1d)
+![Pseudo](https://github.com/gaetanldx94/ChatDCK/assets/119732048/c20df7fe-623f-4075-920a-59a32d47bcce)
 
-![Capture d’écran 2022-09-04 222411](https://github.com/gaetanldx94/ChatDCK/assets/119732048/6ddad2f2-8070-41d5-8b28-cfc2a14ca012)
 
 
 # Typing Race
