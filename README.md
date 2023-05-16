@@ -44,5 +44,25 @@ Double-cliquez sur le fichier compile.bat pour le lancer. Cela va compiler le cl
 Dans l'invite de commande, entrez l'adresse IP de votre machine Windows avec le port du serveur (9000 par défaut).
 Cela va connecter le client au serveur Docker.
 
+Dans un 1er temps, le serveur vous demande de rentrer votre pseudo qui sera visible par tous les utilisateurs.
+
 Vous pouvez maintenant utiliser le client pour envoyer et recevoir des messages dans la messagerie instantanée.
 Voilà, vous avez maintenant configuré et exécuté le projet de messagerie instantanée.
+
+
+# Commande disponible 
+
+Il existe plusieurs commande pour le chat:
+- /help qui référence toute les commandes existantes. 
+- /pseudo qui permet de changer de pseudo.
+- /list qui liste tout les clients connectés.
+- /rank qui permet de connaitre le classement du jeu Typing Race.
+
+# Changement de pseudo 
+
+Si vous n'aimez plus le pseudo que vous avez rentré, vous avez la possibilité de le changer avec le bouton "Changement de pseudo". Cela ouvre alors une fenètre qui vous permet de rentré votre nouvelle identité.
+
+# Typing Race
+
+Vous avez aussi la possiblité de défier les membres du chat en ligne grâce au jeu "Typing Race". C'est donc un jeu de clavier, ou vous devez recopier une phrase à l'identique le plus rapidement possible. Votre temps est stocké dans un classement qui est actualissé en temps réel.
+
