@@ -55,7 +55,7 @@ Voilà, vous avez maintenant configuré et exécuté le projet de messagerie ins
 Il existe plusieurs commande pour le chat:
 - /help qui référence toute les commandes existantes. 
 
-![help](https://github.com/gaetanldx94/ChatDCK/assets/119732048/e343e31e-6603-4d16-b79c-3400f6a66973)
+       ![help](https://github.com/gaetanldx94/ChatDCK/assets/119732048/e343e31e-6603-4d16-b79c-3400f6a66973)
 
 - /pseudo qui permet de changer de pseudo.
 
