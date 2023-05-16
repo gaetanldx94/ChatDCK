@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,13 +13,18 @@ import javax.swing.JTextField;
 
 public class Jeux extends JFrame implements ActionListener {
 
+	/*
+	 * VARIABLES
+	 */
 	private JTextField txtInput;
-	private JLabel phrase, erreur;
-	private double temps;
-	private Client clt;
+	private JLabel     phrase, erreur;
+	private double     temps;
+	private Client     clt;
 
+	/*
+	 * Constructeur principal
+	 */
 	public Jeux(Client clt) {
-
 		this.setTitle("Typing Race");
 		this.setSize(850, 150);
 		this.setLocationRelativeTo(null);
@@ -44,8 +48,10 @@ public class Jeux extends JFrame implements ActionListener {
 		temps = System.currentTimeMillis();
 	}
 
-	public String getPhrase()
-	{
+	/*
+	 * Récupère la saisi utilisateur
+	 */
+	public String getPhrase() {
 		String phrase = "";
 
 		try {
@@ -66,22 +72,19 @@ public class Jeux extends JFrame implements ActionListener {
 		return phrase;
 	}
 
+	/*
+	 * Action des bouttons
+	 */
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if(e.getSource() == this.txtInput)
-		{
-			if(this.txtInput.getText().equals(phrase.getText()))
-			{
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == this.txtInput) {
+			if(this.txtInput.getText().equals(phrase.getText())) {
 				temps = (System.currentTimeMillis() - temps)/1000;
 				this.clt.setMessage("fsd6qkoz256f4s7dfjnq:"+temps);
 				this.dispose();
-			}
-			else
-			{
+			} else {
 				erreur.setText("Phrase incorrect !");
 			}
 		}
 	}
-
 }

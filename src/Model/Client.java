@@ -8,20 +8,27 @@ import java.net.Socket;
 
 import View.PanelClient;
 
-public class Client extends Thread{
+public class Client extends Thread {
 
-	private Socket clientSocket;
-	private PrintWriter out;
+	/*
+	 * VARIABLES
+	 */
+	private Socket         clientSocket;
+	private PrintWriter    out;
 	private BufferedReader in;
-	private String message;
-	private String pseudo;
-	private PanelClient pnlClt;
-	private boolean bPseudo = false;
+	private String         message;
+	private String         pseudo;
+	private PanelClient    pnlClt;
+
+	private boolean        bPseudo = false;
 
 	public Client(PanelClient pnlClt) {
 		this.pnlClt = pnlClt;
 	}
 
+	/*
+	 * Thread principale du client
+	 */
 	public void run() {
 		try {
 			clientSocket = new Socket(this.pnlClt.getFrameClient().getIp(), this.pnlClt.getFrameClient().getPort());
@@ -29,7 +36,7 @@ public class Client extends Thread{
 			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), "UTF-8"));
 			out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream(), "UTF-8"), true);
 
-			out.println("5f4ky478l1qs35d178ksd5");
+			out.println("5f4ky478l1qs35d178ksd5"); //Flag de sécuriter
 
 			this.pnlClt.appendTxt(in.readLine());
 
@@ -65,25 +72,28 @@ public class Client extends Thread{
 		}
 	}
 
-	//Methodes
-	public void setMessage(String msg) { this.message = msg; }
-	public String getPseudo(){return this.pseudo;}
-	public void   setPseudo(String ch)
-	{
+	/*
+	 * Change le pseudo utilisé
+	 */
+	public void setPseudo(String ch) {
 		out.println("/pseudo:"+ch);
 		this.pseudo = ch;
 		this.pnlClt.getFrameClient().setTitle(this.pseudo);
 	}
 
-	public void disconnect()
-	{
-		try
-		{
+	/*
+	 * Déconnection du client
+	 * (Fermeture de l'IHM)
+	 */
+	public void disconnect() {
+		try {
 			clientSocket.close();
-		} catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
 	}
+
+	public void setMessage(String msg) { this.message = msg; }
+	public String getPseudo(){return this.pseudo;}
 }
