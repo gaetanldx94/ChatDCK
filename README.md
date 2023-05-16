@@ -70,4 +70,6 @@ Si vous n'aimez plus le pseudo que vous avez rentré, vous avez la possibilité 
 # Typing Race
 
 Vous avez aussi la possiblité de défier les membres du chat en ligne grâce au jeu "Typing Race". C'est donc un jeu de clavier, ou vous devez recopier une phrase à l'identique le plus rapidement possible. Votre temps est stocké dans un classement qui est actualissé en temps réel.
+![Typing Race](https://github.com/gaetanldx94/ChatDCK/assets/119732048/4c77c6a3-b76b-4767-9e63-bb372b8c036f)
+
 
