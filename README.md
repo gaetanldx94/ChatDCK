@@ -35,7 +35,7 @@ Avantages :
 - Fenêtre graphique côté client et non un affichage console.
 
 Limites :
-- Les clients et le serveur doivent être sous le même réseau.
+- Les clients et le serveur doivent être sous le même réseau. (Cela peut être résolu en ouvrant le port du routeur auquel vous êtes connecté)
 
 Assurez-vous que Docker est installé sur votre machine Windows. Si vous ne l'avez pas déjà installé, vous pouvez suivre les instructions sur le site officiel de Docker: https://www.docker.com/get-started
 
@@ -56,8 +56,8 @@ Cela affichera l'adresse IP de votre machine Windows.
 Pour permettre la connexion au serveur Docker depuis l'extérieur, vous devez ouvrir le port 9000 de votre pare-feu Windows. Vous pouvez suivre les instructions fournies par Microsoft pour ouvrir des ports dans le pare-feu Windows : https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule.
 
 Pour le client, récupérer le code java dans la branche client.
-Double-cliquez sur le fichier compile.bat pour le lancer. Cela va compiler le client et ouvrir une invite de commande.
-Dans l'invite de commande, entrez l'adresse IP de votre machine Windows avec le port du serveur (9000 par défaut).
+Double-cliquez sur le fichier compile.bat pour le lancer. Cela va compiler le client et ouvrir un invite de commande.
+Dans la fenêtre qui s'ouvriras, entrez l'adresse IP de votre machine Windows avec le port du serveur (9000 par défaut).
 Cela va connecter le client au serveur Docker.
 
 ![AdresseIp](https://github.com/gaetanldx94/ChatDCK/assets/119732048/2a8fc461-e634-44f2-8222-9f0450958430)
