@@ -59,8 +59,14 @@ Il existe plusieurs commande pour le chat:
 
 - /pseudo qui permet de changer de pseudo.
 
+![pseudoCmd](https://github.com/gaetanldx94/ChatDCK/assets/119732048/6ecbd64a-e551-4f57-92d0-2a7a0bd9957e)
+
 
 - /list qui liste tout les clients connectés.
+
+![list](https://github.com/gaetanldx94/ChatDCK/assets/119732048/d14c1ed7-6921-4f80-ac37-f74379810465)
+
+
 - /rank qui permet de connaitre le classement du jeu Typing Race.
 
 # Changement de pseudo 
