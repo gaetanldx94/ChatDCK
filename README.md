@@ -44,6 +44,10 @@ Double-cliquez sur le fichier compile.bat pour le lancer. Cela va compiler le cl
 Dans l'invite de commande, entrez l'adresse IP de votre machine Windows avec le port du serveur (9000 par défaut).
 Cela va connecter le client au serveur Docker.
 
+![AdresseIp](https://github.com/gaetanldx94/ChatDCK/assets/119732048/2a8fc461-e634-44f2-8222-9f0450958430)
+
+
+
 Dans un 1er temps, le serveur vous demande de rentrer votre pseudo qui sera visible par tous les utilisateurs.
 
 Vous pouvez maintenant utiliser le client pour envoyer et recevoir des messages dans la messagerie instantanée.
