@@ -77,7 +77,7 @@ public class ClientThread extends Thread {
 					// Commande d'affichage de la liste des commandes disponibles
 					StringBuilder builder = new StringBuilder();
 					for (int i = 0; i < COMMANDS.length-1; i++) {
-						builder.append(cmd).append("\n");
+						builder.append(i).append("\n");
 					}
 					out.println(builder);
 				} else if(inputLine.startsWith(COMMANDS[3])) {
